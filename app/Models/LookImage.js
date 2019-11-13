@@ -9,7 +9,7 @@ class LookImage extends Model {
   }
 
   images() {
-    return this.hasMany("App/Models/Image");
+    return this.belongsTo("App/Models/Image");
   }
 }
 

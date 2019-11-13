@@ -5,7 +5,9 @@ const Look = use("App/Models/Look");
 class LookController {
   async index() {
     const looks = Look.query()
-      .with("look_images")
+      .with("look_images", builder => {
+        builder.with("images");
+      })
       .fetch();
 
     return looks;
@@ -22,7 +24,9 @@ class LookController {
   async show({ params }) {
     const look = await Look.findOrFail(params.id);
 
-    await look.load("look_images");
+    await look.load("look_images", builder => {
+      builder.with("images");
+    });
 
     return look;
   }
