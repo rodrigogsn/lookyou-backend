@@ -19,7 +19,7 @@ class CalendarController {
     const data = request.only([
       "user_id",
       "type",
-      "all_day",
+      "time",
       "startTime",
       "endTime",
       "title",
@@ -49,7 +49,7 @@ class CalendarController {
     const data = request.only([
       "user_id",
       "type",
-      "all_day",
+      "time",
       "startTime",
       "endTime",
       "title",

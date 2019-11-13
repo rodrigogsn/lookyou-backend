@@ -8,7 +8,7 @@ class CalendarSchema extends Schema {
     this.create("calendars", table => {
       table.increments();
       table.string("user_id");
-      table.boolean("all_day");
+      table.string("time");
       table.timestamp("startTime").defaultTo(this.fn.now());
       table.timestamp("endTime").defaultTo(this.fn.now());
       table.string("title");
