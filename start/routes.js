@@ -9,3 +9,4 @@ Route.get("/", () => {
 Route.resource("looks", "LookController").apiOnly();
 Route.resource("images", "ImageController").apiOnly();
 Route.resource("look_images", "LookImageController").apiOnly();
+Route.resource("calendars", "CalendarController").apiOnly();

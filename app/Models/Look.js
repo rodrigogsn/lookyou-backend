@@ -7,6 +7,10 @@ class Look extends Model {
   look_images() {
     return this.hasMany("App/Models/LookImage");
   }
+
+  calendars() {
+    return this.belongsTo("App/Models/Calendar");
+  }
 }
 
 module.exports = Look;
