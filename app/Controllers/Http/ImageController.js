@@ -1,93 +1,45 @@
-'use strict'
+"use strict";
 
-/** @typedef {import('@adonisjs/framework/src/Request')} Request */
-/** @typedef {import('@adonisjs/framework/src/Response')} Response */
-/** @typedef {import('@adonisjs/framework/src/View')} View */
+const Image = use("App/Models/Image");
 
-/**
- * Resourceful controller for interacting with images
- */
 class ImageController {
-  /**
-   * Show a list of all images.
-   * GET images
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async index ({ request, response, view }) {
+  async index() {
+    const image = Image.all();
+
+    return image;
   }
 
-  /**
-   * Render a form to be used for creating a new image.
-   * GET images/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async create ({ request, response, view }) {
+  async store({ request }) {
+    const data = request.only(["user_id", "name", "favorite", "url"]);
+
+    const image = await Image.create(data);
+
+    return image;
   }
 
-  /**
-   * Create/save a new image.
-   * POST images
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async store ({ request, response }) {
+  async show({ params }) {
+    const image = await Image.findOrFail(params.id);
+
+    return image;
   }
 
-  /**
-   * Display a single image.
-   * GET images/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async show ({ params, request, response, view }) {
+  async update({ params, request }) {
+    const image = await Image.findOrFail(params.id);
+
+    const data = request.only(["user_id", "name", "favorite", "url"]);
+
+    image.merge(data);
+
+    await image.save();
+
+    return image;
   }
 
-  /**
-   * Render a form to update an existing image.
-   * GET images/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async edit ({ params, request, response, view }) {
-  }
+  async destroy({ params }) {
+    const image = await Image.findOrFail(params.id);
 
-  /**
-   * Update image details.
-   * PUT or PATCH images/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async update ({ params, request, response }) {
-  }
-
-  /**
-   * Delete a image with id.
-   * DELETE images/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
-  async destroy ({ params, request, response }) {
+    await image.delete();
   }
 }
 
-module.exports = ImageController
+module.exports = ImageController;

@@ -7,3 +7,4 @@ Route.get("/", () => {
 });
 
 Route.resource("looks", "LookController").apiOnly();
+Route.resource("images", "ImageController").apiOnly();
