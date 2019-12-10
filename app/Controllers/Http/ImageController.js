@@ -40,8 +40,8 @@ class ImageController {
     return image;
   }
 
-  async destroy({ params }) {
-    const image = await Image.findOrFail(params.id);
+  async destroy({ params, request }) {
+    const image = await Image.findByOrFail("name", request.input("name"));
 
     await image.delete();
   }
