@@ -3,8 +3,13 @@
 const Image = use("App/Models/Image");
 
 class ImageController {
-  async index() {
-    const image = Image.all();
+  async index({ request }) {
+    const user_id =
+      request.input("user_id") !== "" ? request.input("user_id") : "";
+
+    const image = Image.query()
+      .where("user_id", "=", user_id)
+      .fetch();
 
     return image;
   }
