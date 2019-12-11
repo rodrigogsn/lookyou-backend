@@ -3,8 +3,12 @@
 const Look = use("App/Models/Look");
 
 class LookController {
-  async index() {
+  async index({ request }) {
+    const user_id =
+      request.input("user_id") !== "" ? request.input("user_id") : "";
+
     const looks = Look.query()
+      .where("user_id", "=", user_id)
       .with("look_images", builder => {
         builder.with("images");
       })
