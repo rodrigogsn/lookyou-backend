@@ -22,6 +22,10 @@ class LookController {
 
     const look = await Look.create(data);
 
+    await look.load("look_images", builder => {
+      builder.with("images");
+    });
+
     return look;
   }
 
