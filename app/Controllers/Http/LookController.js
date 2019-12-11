@@ -48,6 +48,10 @@ class LookController {
 
     await look.save();
 
+    await look.load("look_images", builder => {
+      builder.with("images");
+    });
+
     return look;
   }
 
